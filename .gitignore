@@ -6,6 +6,7 @@ _ReSharper.*/
 bin/
 obj/
 Debug/
+Migrations/
 Release/
 *.opensdf
 *.tlog
@@ -15,3 +16,5 @@ TestResult.xml
 Version.cs
 Version.h
 Version.cpp
+.vs/
+

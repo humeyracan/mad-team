@@ -15,6 +15,10 @@ namespace DataAccess.DBContext
            : base(options)
         {
         }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Server=.;Database=NME;Trusted_Connection=True;");
+        }
         public DbSet<User> Users { get; set; }
         public DbSet<Label> Labels { get; set; }
         public DbSet<Post> Posts { get; set; }

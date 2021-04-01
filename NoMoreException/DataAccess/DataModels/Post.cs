@@ -39,11 +39,7 @@ namespace DataAccess.DataModels
         public string Body { get; set; }
         
         [Required]
-        public int OwnerUserId { get; set; }
-
-        [Required]
-        [StringLength(200)]
-        public string OwnerUsername { get; set; }
+        public User User { get; set; }
 
         public DateTime LastEditingDate { get; set; }
 
