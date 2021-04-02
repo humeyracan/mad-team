@@ -1,12 +1,7 @@
 ﻿using DataAccess.DataModels.Enums;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.DataModels
 {
@@ -16,8 +11,6 @@ namespace DataAccess.DataModels
         public int Id { get; set; }
 
         [StringLength(100)]
-        [Required]
-        [Index(IsUnique = true)]
         public string Username { get; set; }
 
         [StringLength(100)]
@@ -42,6 +35,5 @@ namespace DataAccess.DataModels
         public bool Active { get; set; }
 
         public byte[] ProfileImage { get; set; }
-
     }
 }
