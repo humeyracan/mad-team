@@ -1,11 +1,7 @@
 ﻿using DataAccess.DataModels.Enums;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.DataModels
 {
@@ -18,22 +14,27 @@ namespace DataAccess.DataModels
         public string Title { get; set; }
 
         [Required]
+        [DefaultValue(0)]
         public bool Active { get; set; }
 
         [Required]
-        public PostType PostType { get; set; }
+        [DefaultValue(PostTypes.Question)]
+        public PostTypes PostType { get; set; }
 
-        public int ParentId { get; set; }
+        [DefaultValue(0)]
+        public int? ParentId { get; set; }
 
-        public int AcceptedAnswerId { get; set; }
+        [DefaultValue(0)]
+        public int? AcceptedAnswerId { get; set; }
 
         [Required]
         public DateTime CreationDate { get; set; }
 
         [DefaultValue(0)]
-        public int Score { get; set; }
+        public int? Score { get; set; }
 
-        public int ViewCount { get; set; }
+        [DefaultValue(0)]
+        public int? ViewCount { get; set; }
 
         [Required]
         public string Body { get; set; }
@@ -41,15 +42,14 @@ namespace DataAccess.DataModels
         [Required]
         public User User { get; set; }
 
-        public DateTime LastEditingDate { get; set; }
+        public DateTime? LastEditingDate { get; set; }
 
         [DefaultValue(0)]
-        public int AnswerCount { get; set; }
+        public int? AnswerCount { get; set; }
 
         [DefaultValue(0)]
-        public int CommentCount { get; set; }
+        public int? CommentCount { get; set; }
 
-        public DateTime ClosedDate { get; set; }
-
+        public DateTime? ClosedDate { get; set; }
     }
 }

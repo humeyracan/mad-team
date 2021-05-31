@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace DataAccess.DataModels.Enums
 {
-    public enum PostType
+    public enum AttachmentTypes
     {
-        Question,
-        Answer
+        Image,
+        Document,
+        Text,
+        Video
     }
 }
