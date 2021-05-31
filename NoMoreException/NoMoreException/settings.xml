@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ApplicationSetting>
+
+  <Plugins>
+    <Plugin>
+      <Name>Business Logic Layer Plugin</Name>
+      <Assembly>BusinessLayer.AppPlugin,BusinessLayer</Assembly>
+    </Plugin>
+    <Plugin>
+      <Name>Data Access Layer Plugin</Name>
+      <Assembly>DataAccess.AppPlugin,DataAccess</Assembly>
+    </Plugin>
+    <Plugin>
+      <Name>Presentation Layer</Name>
+      <Assembly>NoMoreException.AppPlugin,NoMoreException</Assembly>
+    </Plugin>
+  </Plugins>
+
+</ApplicationSetting>

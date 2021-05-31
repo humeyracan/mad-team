@@ -1,5 +1,6 @@
 ﻿using BaseTypes.Shared;
 using BusinessLayer.Dtos;
+using BusinessLayer.Interfaces;
 using DataAccess.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.BusinessObject
 {
-    public class LabelObject:BaseBusinessObject
+    public class LabelObject:BaseBusinessObject,ILabelObject
     {
         public LabelDto Get(int id)
         {
