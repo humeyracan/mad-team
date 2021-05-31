@@ -13,7 +13,7 @@ namespace Shared.BaseTypes
             {
                 try
                 {
-                    var settingFile = "C:\\Users\\can.kayi\\Source\\Repos\\make-a-difference-team\\NoMoreException\\NoMoreException" + "/settings.xml";
+                    var settingFile = Environment.CurrentDirectory + "/settings.xml";
                     var doc = new XmlDocument();
                     doc.Load(settingFile);
                     XmlSerializer serializer = new XmlSerializer(typeof(ApplicationSetting));
