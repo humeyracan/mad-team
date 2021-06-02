@@ -19,5 +19,11 @@ namespace BusinessLayer.BusinessObject
 
             return new LabelDto {Id=result.Id,Text=result.Text };
         }
+
+        public void Remove(int id)
+        {
+            //var repository = FindService<ILabelRepository>();
+            //repository.RemoveById(id);
+        }
     }
 }

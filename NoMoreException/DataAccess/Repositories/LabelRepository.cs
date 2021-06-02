@@ -1,25 +1,32 @@
 ﻿using DataAccess.DataModels;
 using DataAccess.DBContext;
-using DataAccess.Dtos;
 using DataAccess.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.Repositories
 {
-    public class LabelRepository:ILabelRepository
+    public class LabelRepository : Repository<Label>, ILabelRepository
     {
-        public LabelData Get(int id)
+        public Label Get(int id)
         {
             var factory = new DbContextFactory();
             string[] stringArray = new string[6];
             using (var context = factory.CreateDbContext(stringArray))
             {
                 var query = context.Labels.FirstOrDefault(x => x.Id == id);
-                return new LabelData { Id=query.Id, Text=query.Text};
+                return new Label { Id = query.Id, Text = query.Text };
+            }
+        }
+
+        public void RemoveById(int id)
+        {
+            var factory = new DbContextFactory();
+            string[] stringArray = new string[6];
+            using (var context = factory.CreateDbContext(stringArray))
+            {
+                var label = context.Labels.FirstOrDefault(x => x.Id == id);
+                context.Labels.Remove(label);
+                context.SaveChangesAsync();
             }
         }
     }
