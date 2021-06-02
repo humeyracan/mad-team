@@ -11,5 +11,6 @@ namespace BusinessLayer.Interfaces
     public interface ILabelObject:IBusinessObject
     {
         public LabelDto Get(int id);
+        public void Remove(int id);
     }
 }

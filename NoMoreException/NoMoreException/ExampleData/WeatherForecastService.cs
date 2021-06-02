@@ -2,6 +2,7 @@ using BusinessLayer.Dtos;
 using BusinessLayer.Interfaces;
 using Shared.BaseTypes;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,6 +19,22 @@ namespace NoMoreException.Data
         {
             var rng = new Random();
             return Task.FromResult(Ioc.Resolve<ILabelObject>().Get(1));
+        }
+
+        public Task<List<AttachmentDto>> GetAttachments()
+        {
+            return Task.FromResult(Ioc.Resolve<IAttachmentObject>().GetAttachmentsByPostId(2));
+        }
+
+        public Task<AttachmentDto> GetAttachment()
+        {
+            return Task.FromResult(Ioc.Resolve<IAttachmentObject>().GetById(4));
+        }
+
+
+        public void deleteLabel()
+        {
+            Ioc.Resolve<ILabelObject>().Remove(1);
         }
     }
 }

@@ -1,14 +1,9 @@
-﻿using DataAccess.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DataAccess.DataModels;
 
 namespace DataAccess.Interfaces
 {
-    public interface ILabelRepository
+    public interface ILabelRepository : IRepository<Label>
     {
-        public LabelData Get(int id);
+        public Label Get(int id);
     }
 }

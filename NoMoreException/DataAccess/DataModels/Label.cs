@@ -2,7 +2,7 @@
 
 namespace DataAccess.DataModels
 {
-    public record Label
+    public record Label : Base
     {
         [Key]
         public int Id { get; set; }

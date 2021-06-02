@@ -1,11 +1,7 @@
-﻿using DataAccess.Interfaces;
+﻿using DataAccess.DataModels;
+using DataAccess.Interfaces;
 using DataAccess.Repositories;
 using Shared.BaseTypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess
 {
@@ -19,6 +15,9 @@ namespace DataAccess
             // Interface Register (Contract Implementation) 
             //
             Ioc.RegisterType<ILabelRepository>(typeof(LabelRepository));
+            Ioc.RegisterType<IUserRepository>(typeof(UserRepository));
+            Ioc.RegisterType<IAttachmentRepository>(typeof(AttachmentRepository));
+            Ioc.RegisterType<IRepository<Base>>(typeof(Repository<Base>));
         }
     }
 }
