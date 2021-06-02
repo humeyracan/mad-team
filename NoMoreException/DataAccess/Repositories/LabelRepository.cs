@@ -17,17 +17,5 @@ namespace DataAccess.Repositories
                 return new Label { Id = query.Id, Text = query.Text };
             }
         }
-
-        public void RemoveById(int id)
-        {
-            var factory = new DbContextFactory();
-            string[] stringArray = new string[6];
-            using (var context = factory.CreateDbContext(stringArray))
-            {
-                var label = context.Labels.FirstOrDefault(x => x.Id == id);
-                context.Labels.Remove(label);
-                context.SaveChangesAsync();
-            }
-        }
     }
 }

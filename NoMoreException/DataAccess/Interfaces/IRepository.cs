@@ -14,8 +14,10 @@ namespace DataAccess.Interfaces
         Task AddAsync(TEntity entity);
         Task AddRangeAsync(IEnumerable<TEntity> entities);
         void Remove(TEntity entity);
+        void RemoveById(int id);
         void RemoveRange(IEnumerable<TEntity> entities);
         Task UpdateAsync();
+        Task UpdateAsync(TEntity entity);
         TEntity GetById(int id);
     }
 }

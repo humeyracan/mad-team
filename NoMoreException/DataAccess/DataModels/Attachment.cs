@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DataAccess.DataModels
 {
-    public record Attachment
+    public record Attachment : Base
     {
         [Key]
         public int Id { get; set; }

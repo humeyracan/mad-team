@@ -12,14 +12,6 @@ namespace DataAccess.Repositories
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected readonly SqlDbContext Context;
-
-
-        protected readonly SqlDbContext Context2;
-
-        public Repository(SqlDbContext context)
-        {
-            this.Context2 = context;
-        }
         public Repository()
         {
             var factory = new DbContextFactory();
@@ -34,6 +26,13 @@ namespace DataAccess.Repositories
 
         public async Task UpdateAsync()
         {
+            await Context.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(TEntity entity)
+        {
+            Context.Set<TEntity>().Attach(entity);
+            Context.Entry(entity).State = EntityState.Modified;
             await Context.SaveChangesAsync();
         }
 
@@ -61,6 +60,16 @@ namespace DataAccess.Repositories
         {
             Context.Set<TEntity>().Remove(entity);
             Context.SaveChangesAsync();
+        }
+
+        public void RemoveById(int id)
+        {
+            TEntity entity = GetById(id);
+            if (entity != null)
+            {
+                Context.Set<TEntity>().Remove(entity);
+                Context.SaveChangesAsync();
+            }
         }
 
         public void RemoveRange(IEnumerable<TEntity> entities)

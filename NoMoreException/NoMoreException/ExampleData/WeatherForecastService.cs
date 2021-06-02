@@ -31,6 +31,10 @@ namespace NoMoreException.Data
             return Task.FromResult(Ioc.Resolve<IAttachmentObject>().GetById(4));
         }
 
+        public void DeleteAttachment(int id)
+        {
+            Ioc.Resolve<IAttachmentObject>().RemoveById(id);
+        }
 
         public void deleteLabel()
         {
