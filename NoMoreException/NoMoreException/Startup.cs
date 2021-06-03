@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NoMoreException.Controllers;
 using NoMoreException.Data;
 using Shared.BaseTypes;
 
@@ -25,6 +26,10 @@ namespace NoMoreException
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+            services.AddSingleton<UserController>();
+            services.AddSingleton<AttachmentController>();
+            services.AddSingleton<LabelController>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

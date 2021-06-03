@@ -92,7 +92,7 @@ namespace BusinessLayer.BusinessObject
             await repository.UpdateAsync(new User { });
         }
 
-        public void Remove(UserDto userDto)
+        public void RemoveUser(UserDto userDto)
         {
             //todo: UserDto'yu User modeline cevirme isi mapper'la yapilacak.
             var repository = FindService<IUserRepository>();
