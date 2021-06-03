@@ -18,7 +18,7 @@ namespace NoMoreException.Data
         public Task<List<AttachmentDto>> GetForecastAsync(DateTime startDate)
         {
             var rng = new Random();
-            return Task.FromResult(Ioc.Resolve<IAttachmentObject>().GetAttachmentsByCommentId(2));
+            return Task.FromResult(Ioc.Resolve<IAttachmentObject>().GetAttachmentsByPostId(1));
         }
 
         //public Task<List<AttachmentDto>> GetAttachments()

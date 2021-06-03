@@ -20,6 +20,8 @@ namespace BusinessLayer.Mapping
                 config.CreateTwoWayMap<Attachment, AttachmentDto>();
                 config.CreateTwoWayMap<Label, LabelDto>();
                 config.CreateTwoWayMap<User, UserDto>();
+                config.CreateTwoWayMap<Post, PostDto>();
+                config.CreateTwoWayMap<Vote, VoteDto>();
             });
             mapper = config.CreateMapper();
         }

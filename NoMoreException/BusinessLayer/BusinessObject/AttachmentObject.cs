@@ -31,18 +31,6 @@ namespace BusinessLayer.BusinessObject
             var result = repository.GetByPostId(postId);
             List<AttachmentDto> attachments = MappingFactory.MapList<Attachment, AttachmentDto>(result);
 
-            foreach (var attachment in result)
-            {
-                attachments.Add(new AttachmentDto
-                {
-                    Id = attachment.Id,
-                    //todo
-                    //Post = new PostDto { Id = attachment.Post.Id, Title = attachment.Post.Title },
-                    AttachmentNr = attachment.AttachmentNr,
-                    AttachmentType = attachment.AttachmentType,
-                    AttachmentData = attachment.AttachmentData
-                });
-            }
             return attachments;
         }
 

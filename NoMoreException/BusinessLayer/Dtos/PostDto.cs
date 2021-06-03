@@ -1,9 +1,4 @@
-﻿using DataAccess.DataModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace BusinessLayer.Dtos
 {
@@ -19,7 +14,7 @@ namespace BusinessLayer.Dtos
         public int Score { get; set; }
         public int ViewCount { get; set; }
         public string Body { get; set; }
-        public User User { get; set; }
+        public UserDto User { get; set; }
         public DateTime LastEditingDate { get; set; }
         public int AnswerCount { get; set; }
         public int CommentCount { get; set; }
