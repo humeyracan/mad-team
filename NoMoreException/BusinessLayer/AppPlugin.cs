@@ -20,8 +20,11 @@ namespace BusinessLayer
             //
 
             Ioc.RegisterType<ILabelObject>(typeof(LabelObject));
-            Ioc.RegisterType<IUserObject>(typeof(UserObject));
+            //Ioc.RegisterType<IUserObject>(typeof(UserObject));
             Ioc.RegisterType<IAttachmentObject>(typeof(AttachmentObject));
+            Ioc.RegisterType<IVoteObject>(typeof(VoteObject));
+            Ioc.RegisterType<IPostObject>(typeof(PostObject));
+
         }
 
     }
