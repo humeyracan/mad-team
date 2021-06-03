@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DataAccess.DataModels
 {
-    public record Post
+    public record Post:Base
     {
         [Key]
         public int Id { get; set; }
