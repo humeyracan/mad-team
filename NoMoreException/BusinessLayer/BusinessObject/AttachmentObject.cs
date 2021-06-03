@@ -25,12 +25,6 @@ namespace BusinessLayer.BusinessObject
             };
         }
 
-        public void Remove(Attachment Attachment)
-        {
-            var repository = FindService<IAttachmentRepository>();
-            repository.Remove(Attachment);
-        }
-
         public void RemoveById(int id)
         {
             var repository = FindService<IAttachmentRepository>();
@@ -48,7 +42,8 @@ namespace BusinessLayer.BusinessObject
                 attachments.Add(new AttachmentDto
                 {
                     Id = attachment.Id,
-                    Post = new PostDto { Id = attachment.Post.Id, Title = attachment.Post.Title },
+                    //todo
+                    //Post = new PostDto { Id = attachment.Post.Id, Title = attachment.Post.Title },
                     AttachmentNr = attachment.AttachmentNr,
                     AttachmentType = attachment.AttachmentType,
                     Data = attachment.AttachmentData
@@ -68,7 +63,8 @@ namespace BusinessLayer.BusinessObject
                 attachments.Add(new AttachmentDto
                 {
                     Id = attachment.Id,
-                    Comment = new CommentDto { Id = attachment.Comment.Id, },
+                    //todo
+                    //Comment = new CommentDto { Id = attachment.Comment.Id, },
                     AttachmentNr = attachment.AttachmentNr,
                     AttachmentType = attachment.AttachmentType,
                     Data = attachment.AttachmentData
@@ -76,15 +72,26 @@ namespace BusinessLayer.BusinessObject
             }
             return attachments;
         }
-        public async Task UpdateAttachment(Attachment Attachment)
+
+        public void CreateAttachment(AttachmentDto newAttachmentDto)
         {
+            //todo: AttachmentDto'yu Attachment modeline cevirme isi mapper'la yapilacak.
             var repository = FindService<IAttachmentRepository>();
-            await repository.UpdateAsync(Attachment);
+            repository.AddAsync(new Attachment { });
         }
-        public void CreateAttachment(Attachment newAttachment)
+
+        public async Task UpdateAttachment(AttachmentDto attachmentDto)
         {
+            //todo: AttachmentDto'yu Attachment modeline cevirme isi mapper'la yapilacak.
             var repository = FindService<IAttachmentRepository>();
-            repository.AddAsync(newAttachment);
+            await repository.UpdateAsync(new Attachment { });
+        }
+
+        public void Remove(AttachmentDto attachmentDto)
+        {
+            //todo: AttachmentDto'yu Attachment modeline cevirme isi mapper'la yapilacak.
+            var repository = FindService<IAttachmentRepository>();
+            repository.Remove(new Attachment { });
         }
     }
 }
