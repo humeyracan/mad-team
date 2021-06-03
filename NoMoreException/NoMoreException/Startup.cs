@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NoMoreException.Data;
+using NoMoreException.ExampleData;
 using Shared.BaseTypes;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,7 @@ namespace NoMoreException
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+            services.AddSingleton<LabelService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

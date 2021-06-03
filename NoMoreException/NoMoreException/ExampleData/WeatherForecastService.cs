@@ -18,7 +18,7 @@ namespace NoMoreException.Data
         public Task<LabelDto> GetForecastAsync(DateTime startDate)
         {
             var rng = new Random();
-            return Task.FromResult(Ioc.Resolve<ILabelObject>().Get(1));
+            return Task.FromResult(Ioc.Resolve<ILabelObject>().GetById(1));
         }
 
         //public Task<List<AttachmentDto>> GetAttachments()
@@ -38,7 +38,7 @@ namespace NoMoreException.Data
 
         public void deleteLabel()
         {
-            Ioc.Resolve<ILabelObject>().Remove(1);
+           // Ioc.Resolve<ILabelObject>().Remove(1);
         }
     }
 }
