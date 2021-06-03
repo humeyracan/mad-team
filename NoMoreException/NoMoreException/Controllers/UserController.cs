@@ -26,9 +26,19 @@ namespace NoMoreException.Controllers
         {
             Ioc.Resolve<IUserObject>().CreateUser(user);
         }
+
         public void UpdateUser(UserDto user)
         {
             Ioc.Resolve<IUserObject>().UpdateUser(user);
+        }
+
+        public void RemoveUser(UserDto user)
+        {
+            Ioc.Resolve<IUserObject>().RemoveUser(user);
+        }
+        public void RemoveById(int id)
+        {
+            Ioc.Resolve<IUserObject>().RemoveById(id);
         }
 
         public List<UserDto> GetAll()
