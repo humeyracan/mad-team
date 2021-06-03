@@ -16,7 +16,7 @@ namespace BusinessLayer.BusinessObject
             var repository = FindService<IAttachmentRepository>();
             var result = repository.GetById(id);
 
-            return MappingFactory.GetMapper().Map<AttachmentDto>(result);
+            return MappingFactory.Map<Attachment,AttachmentDto>(result);
         }
 
         public void RemoveById(int id)
@@ -45,19 +45,19 @@ namespace BusinessLayer.BusinessObject
         public void CreateAttachment(AttachmentDto newAttachmentDto)
         {
             var repository = FindService<IAttachmentRepository>();
-            repository.AddAsync(MappingFactory.GetMapper().Map<Attachment>(newAttachmentDto));
+            repository.AddAsync(MappingFactory.Map<AttachmentDto,Attachment>(newAttachmentDto));
         }
 
         public async Task UpdateAttachment(AttachmentDto attachmentDto)
         {
             var repository = FindService<IAttachmentRepository>();
-            await repository.UpdateAsync(MappingFactory.GetMapper().Map<Attachment>(attachmentDto));
+            await repository.UpdateAsync(MappingFactory.Map<AttachmentDto, Attachment>(attachmentDto));
         }
 
         public void RemoveAttachment(AttachmentDto attachmentDto)
         {
             var repository = FindService<IAttachmentRepository>();
-            repository.Remove(MappingFactory.GetMapper().Map<Attachment>(attachmentDto));
+            repository.Remove(MappingFactory.Map<AttachmentDto, Attachment>(attachmentDto));
         }
     }
 }

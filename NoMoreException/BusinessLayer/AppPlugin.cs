@@ -17,8 +17,6 @@ namespace BusinessLayer
 
 
             // Interface Register (Contract Implementation) 
-            //
-
             Ioc.RegisterType<ILabelObject>(typeof(LabelObject));
             Ioc.RegisterType<IUserObject>(typeof(UserObject));
             Ioc.RegisterType<IAttachmentObject>(typeof(AttachmentObject));
