@@ -21,15 +21,15 @@ namespace NoMoreException.Data
             return Task.FromResult(Ioc.Resolve<ILabelObject>().Get(1));
         }
 
-        public Task<List<AttachmentDto>> GetAttachments()
-        {
-            return Task.FromResult(Ioc.Resolve<IAttachmentObject>().GetAttachmentsByPostId(2));
-        }
+        //public Task<List<AttachmentDto>> GetAttachments()
+        //{
+        //    return Task.FromResult(Ioc.Resolve<IAttachmentObject>().GetAttachmentsByPostId(2));
+        //}
 
-        public Task<AttachmentDto> GetAttachment()
-        {
-            return Task.FromResult(Ioc.Resolve<IAttachmentObject>().GetById(4));
-        }
+        //public Task<AttachmentDto> GetAttachment()
+        //{
+        //    return Task.FromResult(Ioc.Resolve<IAttachmentObject>().GetById(4));
+        //}
 
 
         public void deleteLabel()
