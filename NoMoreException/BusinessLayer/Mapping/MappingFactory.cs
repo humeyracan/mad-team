@@ -3,9 +3,6 @@ using BusinessLayer.Dtos;
 using DataAccess.DataModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLayer.Mapping
 {
@@ -35,9 +32,9 @@ namespace BusinessLayer.Mapping
             firstExpression?.Invoke(mapT);
             secondExpression?.Invoke(mapY);
         }
-        public static IMapper GetMapper()
+        public static TDestination Map<TSource, TDestination>(TSource source)
         {
-            return mapper;
+            return mapper.Map<TSource, TDestination>(source);
         }
         public static List<TDestination> MapList<TSource, TDestination>(List<TSource> source)
         {
