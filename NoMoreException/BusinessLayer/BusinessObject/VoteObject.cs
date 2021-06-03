@@ -48,7 +48,7 @@ namespace BusinessLayer.BusinessObject
         public VoteDto GetById(int voteId)
         {
             var repository = FindService<IVoteRepository>();
-            var result = repository.GetById(voteId);
+            var result = repository.GetVoteById(voteId);
 
             return new VoteDto
                 {
