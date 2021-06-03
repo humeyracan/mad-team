@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccess.DataModels
 {
-    public record Vote
+    public record Vote :Base
     {
         [Key]
         public int Id { get; set; }
