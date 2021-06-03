@@ -26,7 +26,6 @@ namespace BusinessLayer.BusinessObject
         {
             var repository = FindService<ILabelRepository>();
             return repository.AddAsync(new Label {});
-            
         }
         public void RemoveById(int id)
         {

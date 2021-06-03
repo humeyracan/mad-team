@@ -43,7 +43,7 @@ else
         <form>
             <div class="form-group">
                 <label asp-for="Text" class="control-label">Text</label>
-                <input for="Text" class="form-control" @bind(lbl.Text)/>
+                <input for="Text" class="form-control" @bind(lbl.Text) />
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-default" @onclick(async ()=> await CreateLabel())>Save</button>
@@ -60,7 +60,7 @@ else
     {
         labelDto = await labelService.GetLabelAsync();
     }
-
+@functions {
     LabelDto lbl = new LabelDto();
 
     protected async Task CreateLabel()
@@ -68,6 +68,7 @@ else
         lbl.Text = "added";
         await labelService.AddLabelAsync(lbl);
     }
+}
 
 }
 
