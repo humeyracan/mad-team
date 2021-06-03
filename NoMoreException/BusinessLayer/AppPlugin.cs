@@ -21,7 +21,7 @@ namespace BusinessLayer
 
             Ioc.RegisterType<ILabelObject>(typeof(LabelObject));
             Ioc.RegisterType<IUserObject>(typeof(UserObject));
-            //Ioc.RegisterType<IAttachmentObject>(typeof(AttachmentObject));
+            Ioc.RegisterType<IAttachmentObject>(typeof(AttachmentObject));
         }
 
     }

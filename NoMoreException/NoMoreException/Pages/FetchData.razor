@@ -22,26 +22,26 @@ else
             </tr>
         </thead>
         <tbody>
-            <tr>
+            @*<tr>
                 <td>@forecasts.Id</td>
-                <td>@forecasts.Text</td>
+                <td>@forecasts.AttachmentNr</td>
             </tr>
-            forecasts
-            @*@foreach (var forecast in forecasts)
+            forecasts*@
+            @foreach (var forecast in forecasts)
         {
             <tr>
-                <td>@forecast.Date.ToShortDateString()</td>
-                <td>@forecast.TemperatureC</td>
-                <td>@forecast.TemperatureF</td>
-                <td>@forecast.Summary</td>
+                <td>@forecast.Id</td>
+                <td>@((int)forecast.AttachmentType)</td>
+                <td>@forecast.AttachmentData.ToString()</td>
+                <td>@forecast.AttachmentNr</td>
             </tr>
-        }*@
+        }
         </tbody>
     </table>
 }
 
 @code {
-    private LabelDto forecasts;
+    private List<AttachmentDto> forecasts;
 
     protected override async Task OnInitializedAsync()
     {

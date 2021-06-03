@@ -10,6 +10,6 @@ namespace BusinessLayer.Dtos
         //public CommentDto Comment { get; set; }
         public AttachmentTypes AttachmentType { get; set; }
         public int AttachmentNr { get; set; }
-        public byte[] Data { get; set; }
+        public byte[] AttachmentData { get; set; }
     }
 }

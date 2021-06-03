@@ -15,10 +15,10 @@ namespace NoMoreException.Data
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        public Task<LabelDto> GetForecastAsync(DateTime startDate)
+        public Task<List<AttachmentDto>> GetForecastAsync(DateTime startDate)
         {
             var rng = new Random();
-            return Task.FromResult(Ioc.Resolve<ILabelObject>().Get(1));
+            return Task.FromResult(Ioc.Resolve<IAttachmentObject>().GetAttachmentsByCommentId(2));
         }
 
         //public Task<List<AttachmentDto>> GetAttachments()
