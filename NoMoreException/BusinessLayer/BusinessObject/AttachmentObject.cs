@@ -48,7 +48,8 @@ namespace BusinessLayer.BusinessObject
                 attachments.Add(new AttachmentDto
                 {
                     Id = attachment.Id,
-                    Post = new PostDto { Id = attachment.Post.Id, Title = attachment.Post.Title },
+                    //todo
+                    //Post = new PostDto { Id = attachment.Post.Id, Title = attachment.Post.Title },
                     AttachmentNr = attachment.AttachmentNr,
                     AttachmentType = attachment.AttachmentType,
                     Data = attachment.AttachmentData
@@ -68,7 +69,8 @@ namespace BusinessLayer.BusinessObject
                 attachments.Add(new AttachmentDto
                 {
                     Id = attachment.Id,
-                    Comment = new CommentDto { Id = attachment.Comment.Id, },
+                    //todo
+                    //Comment = new CommentDto { Id = attachment.Comment.Id, },
                     AttachmentNr = attachment.AttachmentNr,
                     AttachmentType = attachment.AttachmentType,
                     Data = attachment.AttachmentData
