@@ -16,7 +16,7 @@ namespace DataAccess
             //
             Ioc.RegisterType<ILabelRepository>(typeof(LabelRepository));
             Ioc.RegisterType<IUserRepository>(typeof(UserRepository));
-            //Ioc.RegisterType<IAttachmentRepository>(typeof(AttachmentRepository));
+            Ioc.RegisterType<IAttachmentRepository>(typeof(AttachmentRepository));
             Ioc.RegisterType<IRepository<Base>>(typeof(Repository<Base>));
         }
     }

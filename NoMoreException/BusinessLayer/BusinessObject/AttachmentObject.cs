@@ -1,9 +1,9 @@
 ﻿using BaseTypes.Shared;
 using BusinessLayer.Dtos;
 using BusinessLayer.Interfaces;
+using BusinessLayer.Mapping;
 using DataAccess.DataModels;
 using DataAccess.Interfaces;
-
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,13 +16,7 @@ namespace BusinessLayer.BusinessObject
             var repository = FindService<IAttachmentRepository>();
             var result = repository.GetById(id);
 
-            return new AttachmentDto
-            {
-                Id = result.Id,
-                AttachmentNr = result.AttachmentNr,
-                AttachmentType = result.AttachmentType,
-                Data = result.AttachmentData
-            };
+            return MappingFactory.GetMapper().Map<AttachmentDto>(result);
         }
 
         public void RemoveById(int id)
@@ -46,7 +40,7 @@ namespace BusinessLayer.BusinessObject
                     //Post = new PostDto { Id = attachment.Post.Id, Title = attachment.Post.Title },
                     AttachmentNr = attachment.AttachmentNr,
                     AttachmentType = attachment.AttachmentType,
-                    Data = attachment.AttachmentData
+                    AttachmentData = attachment.AttachmentData
                 });
             }
             return attachments;
@@ -56,20 +50,9 @@ namespace BusinessLayer.BusinessObject
         {
             var repository = FindService<IAttachmentRepository>();
             var result = repository.GetByCommentId(commentId);
-            List<AttachmentDto> attachments = new List<AttachmentDto>();
+            List<AttachmentDto> attachments = MappingFactory.MapList<Attachment,AttachmentDto>(result);
 
-            foreach (var attachment in result)
-            {
-                attachments.Add(new AttachmentDto
-                {
-                    Id = attachment.Id,
-                    //todo
-                    //Comment = new CommentDto { Id = attachment.Comment.Id, },
-                    AttachmentNr = attachment.AttachmentNr,
-                    AttachmentType = attachment.AttachmentType,
-                    Data = attachment.AttachmentData
-                });
-            }
+          
             return attachments;
         }
 
@@ -77,7 +60,7 @@ namespace BusinessLayer.BusinessObject
         {
             //todo: AttachmentDto'yu Attachment modeline cevirme isi mapper'la yapilacak.
             var repository = FindService<IAttachmentRepository>();
-            repository.AddAsync(new Attachment { });
+            repository.AddAsync(MappingFactory.GetMapper().Map<Attachment>(newAttachmentDto));
         }
 
         public async Task UpdateAttachment(AttachmentDto attachmentDto)

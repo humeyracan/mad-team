@@ -1,3 +1,4 @@
+using BusinessLayer.Mapping;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +24,7 @@ namespace NoMoreException
         public void ConfigureServices(IServiceCollection services)
         {
             ApplicationConfig.Start();
+            MappingFactory.CreateMappingFactory();
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
