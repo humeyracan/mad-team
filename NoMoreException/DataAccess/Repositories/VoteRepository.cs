@@ -15,7 +15,7 @@ namespace DataAccess.Repositories
             string[] stringArray = new string[6];
             using (var context = factory.CreateDbContext(stringArray))
             {
-                foreach (var query in context.Votes)
+                foreach (var query in context.Votes.Include(a=> a.Post).Include(a=> a.User))
                 {
                     if (query != null)
                         votes.Add(query);
@@ -55,5 +55,22 @@ namespace DataAccess.Repositories
             }
             return votes;
         }
+
+        public Vote GetVoteById(int voteid)
+        {
+            List<Vote> votes = new List<Vote>();
+            var factory = new DbContextFactory();
+            string[] stringArray = new string[6];
+            using (var context = factory.CreateDbContext(stringArray))
+            {
+                var query = context.Votes.Include(a => a.User).Include(a => a.Post).First(x => x.Id == voteid);
+                if (query != null)
+                    return query;
+                else
+                    return null;
+            }
+        }
+
+
     }
 }
