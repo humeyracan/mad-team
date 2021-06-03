@@ -70,7 +70,7 @@ namespace BusinessLayer.BusinessObject
             await repository.UpdateAsync(new Attachment { });
         }
 
-        public void Remove(AttachmentDto attachmentDto)
+        public void RemoveAttachment(AttachmentDto attachmentDto)
         {
             //todo: AttachmentDto'yu Attachment modeline cevirme isi mapper'la yapilacak.
             var repository = FindService<IAttachmentRepository>();

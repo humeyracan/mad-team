@@ -13,7 +13,7 @@ namespace BusinessLayer.Interfaces
         public List<UserDto> GetAll();
         public UserDto GetById(int id);
         public UserDto Authenticate(String username, String password);
-        void Remove(UserDto userDto);
+        void RemoveUser(UserDto userDto);
         void RemoveById(int id);
         Task UpdateUser(UserDto userDto);
         void CreateUser(UserDto newUserDto);

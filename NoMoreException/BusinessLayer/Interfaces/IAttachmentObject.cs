@@ -9,7 +9,7 @@ namespace BusinessLayer.Interfaces
     public interface IAttachmentObject : IBusinessObject
     {
         AttachmentDto GetById(int id);
-        void Remove(AttachmentDto attachmentDto);
+        void RemoveAttachment(AttachmentDto attachmentDto);
         void RemoveById(int id);
         List<AttachmentDto> GetAttachmentsByPostId(int postId);
         List<AttachmentDto> GetAttachmentsByCommentId(int commentId);

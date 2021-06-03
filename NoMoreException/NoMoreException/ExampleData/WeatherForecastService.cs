@@ -38,7 +38,7 @@ namespace NoMoreException.Data
 
         public void deleteLabel()
         {
-            Ioc.Resolve<ILabelObject>().Remove(1);
+           // Ioc.Resolve<ILabelObject>().Remove(1);
         }
     }
 }
