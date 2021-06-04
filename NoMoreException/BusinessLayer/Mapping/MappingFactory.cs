@@ -19,6 +19,7 @@ namespace BusinessLayer.Mapping
                 config.CreateTwoWayMap<User, UserDto>();
                 config.CreateTwoWayMap<Post, PostDto>();
                 config.CreateTwoWayMap<Vote, VoteDto>();
+                config.CreateTwoWayMap<Comment, CommentDto>();
             });
             mapper = config.CreateMapper();
         }

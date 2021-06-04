@@ -22,7 +22,7 @@ namespace BusinessLayer
             Ioc.RegisterType<IAttachmentObject>(typeof(AttachmentObject));
             Ioc.RegisterType<IVoteObject>(typeof(VoteObject));
             Ioc.RegisterType<IPostObject>(typeof(PostObject));
-
+            Ioc.RegisterType<ICommentObject>(typeof(CommentObject));
         }
 
     }

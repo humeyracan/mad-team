@@ -2,7 +2,8 @@
 
 @using NoMoreException.Data
 @using BusinessLayer.Dtos
-@inject WeatherForecastService ForecastService
+@using NoMoreException.Controllers
+@inject CommentController commentController
 
 <h1>Weather forecast</h1>
 
@@ -30,25 +31,21 @@ else
                 <td>@forecasts.AttachmentNr</td>
             </tr>
             forecasts*@
-            @foreach (var forecast in forecasts)
-        {
+         
             <tr>
-                <td>@forecast.Id</td>
-                <td>@((int)forecast.AttachmentType)</td>
-                <td>@forecast.AttachmentData.ToString()</td>
-                <td>@forecast.AttachmentNr</td>
-                <td>@forecast.Post.Title</td>
+                <td>@forecasts.Id</td>
+                <td>@forecasts.User.Username</td>
             </tr>
-        }
+       
         </tbody>
     </table>
 }
 
 @code {
-    private List<AttachmentDto> forecasts;
+    private CommentDto forecasts;
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+        forecasts = await commentController.GetComment(3);
     }
 }

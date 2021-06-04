@@ -31,6 +31,7 @@ namespace NoMoreException
             services.AddSingleton<UserController>();
             services.AddSingleton<AttachmentController>();
             services.AddSingleton<LabelController>();
+            services.AddSingleton<CommentController>();
 
         }
 
