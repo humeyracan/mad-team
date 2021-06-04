@@ -20,6 +20,7 @@ namespace DataAccess
             Ioc.RegisterType<IRepository<Base>>(typeof(Repository<Base>));
             Ioc.RegisterType<IVoteRepository>(typeof(VoteRepository));
             Ioc.RegisterType<IPostRepository>(typeof(PostRepository));
+            Ioc.RegisterType<ICommentRepository>(typeof(CommentRepository));
 
 
         }

@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace DataAccess.DataModels
 {
-    public record Comment
+    public record Comment : Base
     {
         [Key]
         public int Id { get; set; }
