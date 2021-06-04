@@ -32,7 +32,8 @@ namespace NoMoreException
             services.AddSingleton<AttachmentController>();
             services.AddSingleton<LabelController>();
             services.AddSingleton<CommentController>();
-
+			services.AddSingleton<VoteController>();
+          	services.AddSingleton<PostController>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
