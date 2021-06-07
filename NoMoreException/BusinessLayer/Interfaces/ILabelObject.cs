@@ -13,9 +13,9 @@ namespace BusinessLayer.Interfaces
     {
 
         LabelDto GetById(int id);
-        void Remove(LabelDto label);
+        void RemoveLabel(LabelDto label);
         void RemoveById(int id);
         Task UpdateLabel(LabelDto label);
-        Task CreateLabel(LabelDto label);
+        void CreateLabel(LabelDto label);
     }
 }
