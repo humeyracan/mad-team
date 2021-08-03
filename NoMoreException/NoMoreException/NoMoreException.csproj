@@ -17,6 +17,8 @@
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="PortalPages\" />
+    <Folder Include="wwwroot\js\bootstrap\" />
+    <Folder Include="wwwroot\js\Jquery\" />
   </ItemGroup>
 
   <ItemGroup>
