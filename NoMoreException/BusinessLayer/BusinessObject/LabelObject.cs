@@ -2,6 +2,7 @@
 using BaseTypes.Shared;
 using BusinessLayer.Dtos;
 using BusinessLayer.Interfaces;
+using BusinessLayer.Mapping;
 using DataAccess.DataModels;
 using DataAccess.Interfaces;
 using System.Threading.Tasks;
@@ -15,27 +16,27 @@ namespace BusinessLayer.BusinessObject
             var repository = FindService<ILabelRepository>();
             var result = repository.GetById(id);
 
-            return new LabelDto {Id=result.Id,Text=result.Text };
+            return MappingFactory.Map<Label,LabelDto>(result);
         }
-        public async Task UpdateLabel(LabelDto label)
+        public async Task UpdateLabel(LabelDto labelDto)
         {
             var repository = FindService<ILabelRepository>();
-            await repository.UpdateAsync(new Label { });
+            await repository.UpdateAsync(MappingFactory.Map<LabelDto, Label>(labelDto));
         }
-        public Task CreateLabel(LabelDto label)
+        public void CreateLabel(LabelDto labelDto)
         {
             var repository = FindService<ILabelRepository>();
-            return repository.AddAsync(new Label {});
+            repository.AddAsync(MappingFactory.Map<LabelDto, Label>(labelDto));
         }
         public void RemoveById(int id)
         {
             var repository = FindService<ILabelRepository>();
             repository.RemoveById(id);
         }
-        public void Remove(LabelDto label)
+        public void RemoveLabel(LabelDto labelDto)
         {
             var repository = FindService<ILabelRepository>();
-            repository.Remove(new Label { });
+            repository.Remove(MappingFactory.Map<LabelDto,Label>(labelDto));
         }
 
     }

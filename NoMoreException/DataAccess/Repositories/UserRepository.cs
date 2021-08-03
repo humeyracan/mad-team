@@ -1,5 +1,4 @@
 ﻿using DataAccess.DataModels;
-using DataAccess.DBContext;
 using DataAccess.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,26 +10,16 @@ namespace DataAccess.Repositories
     {
         public User Get(string username, string password)
         {
-            var factory = new DbContextFactory();
-            string[] stringArray = new string[6];
-            using (var context = factory.CreateDbContext(stringArray))
-            {
-                return context.Users.FirstOrDefault(x => x.Username == username);
-            }
+            return Context.Users.FirstOrDefault(x => x.Username == username);
         }
 
         public List<User> GetAll()
         {
             List<User> users = new List<User>();
-            var factory = new DbContextFactory();
-            string[] stringArray = new string[6];
-            using (var context = factory.CreateDbContext(stringArray))
+            foreach (var query in Context.Users)
             {
-                foreach (var query in context.Users)
-                {
-                    if (query != null)
-                        users.Add(query);
-                }
+                if (query != null)
+                    users.Add(query);
             }
             return users;
         }

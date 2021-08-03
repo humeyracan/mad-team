@@ -1,5 +1,4 @@
 ﻿using DataAccess.DataModels;
-using DataAccess.DBContext;
 using DataAccess.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +11,10 @@ namespace DataAccess.Repositories
         public List<Attachment> GetByPostId(int postId)
         {
             List<Attachment> attachments = new List<Attachment>();
-            var factory = new DbContextFactory();
-            string[] stringArray = new string[6];
-            using (var context = factory.CreateDbContext(stringArray))
+            foreach (var query in Context.Attachments.Include(a => a.Post).Where(x => x.Post.Id == postId))
             {
-                foreach (var query in context.Attachments.Include(a => a.Post).Where(x => x.Post.Id == postId))
-                {
-                    if (query != null)
-                        attachments.Add(query);
-                }
+                if (query != null)
+                    attachments.Add(query);
             }
             return attachments;
         }
@@ -28,15 +22,10 @@ namespace DataAccess.Repositories
         public List<Attachment> GetByCommentId(int commentId)
         {
             List<Attachment> attachments = new List<Attachment>();
-            var factory = new DbContextFactory();
-            string[] stringArray = new string[6];
-            using (var context = factory.CreateDbContext(stringArray))
+            foreach (var query in Context.Attachments.Include(a => a.Comment).Where(x => x.Comment.Id == commentId))
             {
-                foreach (var query in context.Attachments.Include(a => a.Comment).Where(x => x.Comment.Id == commentId))
-                {
-                    if (query != null)
-                        attachments.Add(query);
-                }
+                if (query != null)
+                    attachments.Add(query);
             }
             return attachments;
         }

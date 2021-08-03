@@ -3,9 +3,6 @@ using BusinessLayer.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.BaseTypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace NoMoreException.Controllers
@@ -20,9 +17,24 @@ namespace NoMoreException.Controllers
         {
             return Task.FromResult(Ioc.Resolve<ILabelObject>().GetById(id));
         }
-        public Task AddLabelAsync(LabelDto label)
+        public void AddLabelAsync(LabelDto labelDto)
         {
-            return Task.FromResult(Ioc.Resolve<ILabelObject>().CreateLabel(label));
+          Ioc.Resolve<ILabelObject>().CreateLabel(labelDto);
+
+        }
+        public void UpdateAttachment(LabelDto labelDto)
+        {
+            Ioc.Resolve<ILabelObject>().UpdateLabel(labelDto);
+        }
+
+        public void RemoveAttachment(LabelDto labelDto)
+        {
+            Ioc.Resolve<ILabelObject>().RemoveLabel(labelDto);
+        }
+
+        public void RemoveById(int id)
+        {
+            Ioc.Resolve<ILabelObject>().RemoveById(id);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using BaseTypes.Shared;
 using BusinessLayer.Dtos;
 using BusinessLayer.Interfaces;
+using BusinessLayer.Mapping;
 using DataAccess.DataModels;
 using DataAccess.Interfaces;
 using System;
@@ -16,18 +17,7 @@ namespace BusinessLayer.BusinessObject
             var repository = FindService<IUserRepository>();
             var result = repository.GetById(id);
 
-            return new UserDto
-            {
-                Id = result.Id,
-                Username = result.Username,
-                FullName = result.FullName,
-                UserType = result.UserType,
-                Email = result.Email,
-                Password = result.Password,
-                RegistryDate = result.RegistryDate,
-                Active = result.Active,
-                ProfileImage = result.ProfileImage
-            };
+            return MappingFactory.Map<User, UserDto>(result);
         }
 
         public void RemoveById(int id)
@@ -40,31 +30,14 @@ namespace BusinessLayer.BusinessObject
         {
             var repository = FindService<IUserRepository>();
             var result = repository.Get(username, password);
-            return new UserDto { Username = result.Username, Password = result.Password };
+            return MappingFactory.Map<User, UserDto>(result);
         }
 
         public List<UserDto> GetAll()
         {
-            List<UserDto> users = new List<UserDto>();
             var repository = FindService<IUserRepository>();
             var result = repository.GetAll();
-
-            foreach (var user in result)
-            {
-                users.Add(new UserDto
-                {
-                    Id = user.Id,
-                    Username = user.Username,
-                    FullName = user.FullName,
-                    UserType = user.UserType,
-                    Email = user.Email,
-                    Password = user.Password,
-                    RegistryDate = user.RegistryDate,
-                    Active = user.Active,
-                    ProfileImage = user.ProfileImage
-                });
-            }
-            return users;
+            return MappingFactory.MapList<User, UserDto>(result);
         }
 
         public UserDto Authenticate(String username, String password)
@@ -75,28 +48,25 @@ namespace BusinessLayer.BusinessObject
             if (result == null)
                 return null;
 
-            return new UserDto { Username = result.Username, Password = result.Password };
+            return MappingFactory.Map<User, UserDto>(result);
         }
 
         public void CreateUser(UserDto newUserDto)
         {
-            //todo: UserDto'yu User modeline cevirme isi mapper'la yapilacak.
             var repository = FindService<IUserRepository>();
-            repository.AddAsync(new User { });
+            repository.AddAsync(MappingFactory.Map<UserDto, User> (newUserDto));
         }
 
         public async Task UpdateUser(UserDto userDto)
         {
-            //todo: UserDto'yu User modeline cevirme isi mapper'la yapilacak.
             var repository = FindService<IUserRepository>();
-            await repository.UpdateAsync(new User { });
+            await repository.UpdateAsync(MappingFactory.Map<UserDto, User>(userDto));
         }
 
         public void RemoveUser(UserDto userDto)
         {
-            //todo: UserDto'yu User modeline cevirme isi mapper'la yapilacak.
             var repository = FindService<IUserRepository>();
-            repository.Remove(new User { });
+            repository.Remove(MappingFactory.Map<UserDto, User>(userDto));
         }
     }
 }

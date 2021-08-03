@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace DataAccess.DataModels.Enums
 {
-    public enum UserTypes
+    public enum UserTypes : int
     {
-        User,
-        Admin
+        User = 0,
+        Admin = 1
     }
 }
