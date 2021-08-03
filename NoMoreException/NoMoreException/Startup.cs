@@ -1,5 +1,6 @@
 using BusinessLayer.Mapping;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using NoMoreException.Controllers;
 using NoMoreException.Data;
 using Shared.BaseTypes;
+
 
 namespace NoMoreException
 {
@@ -27,13 +29,22 @@ namespace NoMoreException
             MappingFactory.CreateMappingFactory();
             services.AddRazorPages();
             services.AddServerSideBlazor();
+
+            services.AddAuthorization();
+            services.AddAuthentication();
+            services.AddProtectedBrowserStorage();
+            services.AddScoped<AuthenticationStateProvider, AuthUserService>();
+            services.AddHttpContextAccessor();
+            services.AddHttpClient();
+
             services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<UserController>();
             services.AddSingleton<AttachmentController>();
             services.AddSingleton<LabelController>();
             services.AddSingleton<CommentController>();
-			services.AddSingleton<VoteController>();
-          	services.AddSingleton<PostController>();
+            services.AddSingleton<VoteController>();
+            services.AddSingleton<PostController>();
+            services.AddSingleton<CustomHttpClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

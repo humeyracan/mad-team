@@ -1,0 +1,95 @@
+﻿@using BusinessLayer.Dtos
+
+@page "/mainpage"
+@attribute [Authorize]
+@inject UserController controller
+@using NoMoreException.Controllers
+@using System.IO
+@using NoMoreException.Data
+@inject CustomHttpClient Http
+@inject UserController UserController
+
+<div class="container">
+    @*<form @onsubmit="OnSubmit">
+            <InputFile OnChange="OnInputFileChange" multiple />
+            <br /><br />
+            <button type="submit">Upload Selected File(s)</button>
+        </form>*@
+    <AuthorizeView>
+        <Authorized>
+            <p>The login I did</p>
+        </Authorized>
+        <NotAuthorized>
+            <p>The login I must do</p>
+        </NotAuthorized>
+    </AuthorizeView>
+
+    <AuthorizeView Roles="Admin">
+        <p>Yes, me Admin</p>
+        <h3>welcome @controller.UserDto.Username</h3>
+        <h3>session user: @user.Email</h3>
+        <button @onclick="LogoutUserRequest">Logout</button>
+    </AuthorizeView>
+
+    <AuthorizeView Roles="User">
+        <p>Oh no, me user</p>
+        <h3>welcome @controller.UserDto.Username</h3>
+        <h3>session user: @user.Email</h3>
+        <button @onclick="LogoutUserRequest">Logout</button>
+    </AuthorizeView>
+
+</div>
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    UserDto user = new UserDto();
+
+    protected override void OnParametersSet()
+    {
+        //this.user = Data.Products.GetProduct(this.Id);
+    }
+    string Message = "No file(s) selected";
+    IReadOnlyList<IBrowserFile> selectedFiles;
+
+    private void OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        selectedFiles = e.GetMultipleFiles();
+        Message = $"{selectedFiles.Count} file(s) selected";
+        this.StateHasChanged();
+    }
+    private async void OnSubmit()
+    {
+        foreach (var file in selectedFiles)
+        {
+            Stream stream = file.OpenReadStream();
+            MemoryStream ms = new MemoryStream();
+            await stream.CopyToAsync(ms);
+            stream.Close();
+
+            UploadedFile uploadedFile = new UploadedFile();
+            uploadedFile.FileName = file.Name;
+            uploadedFile.FileContent = ms.ToArray();
+            ms.Close();
+
+            await Http.PostJsonAsync<UploadedFile>("/api/fileupload", uploadedFile);
+        }
+        Message = $"{selectedFiles.Count} file(s) uploaded on server";
+        this.StateHasChanged();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            user = await ServiceProvider.Get<AuthUserService>().GetUserSession();
+            StateHasChanged();
+        }
+    }
+
+    private async Task LogoutUserRequest()
+    {
+        await ServiceProvider.Get<AuthUserService>().LogoutAsync();
+        NavigationManager.NavigateTo("mainpage");
+    }
+}

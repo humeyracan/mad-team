@@ -17,7 +17,8 @@
     <link href="NoMoreException.styles.css" rel="stylesheet" />
 </head>
 <body>
-    <component type="typeof(App)" render-mode="ServerPrerendered" />
+    <component type="typeof(App)" render-mode="Server" />
+    <script src="_content/Microsoft.AspNetCore.ProtectedBrowserStorage/protectedBrowserStorage.js"></script>
 
     <div id="blazor-error-ui">
         <environment include="Staging,Production">
