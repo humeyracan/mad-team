@@ -8,7 +8,7 @@ namespace DataAccess.Repositories
 {
     public class UserRepository : Repository<User>, IUserRepository
     {
-        public User Get(string username, string password)
+        public User Get(string username)
         {
             return Context.Users.FirstOrDefault(x => x.Username == username);
         }
@@ -28,7 +28,7 @@ namespace DataAccess.Repositories
         {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 return null;
-            User user = Get(username, password);
+            User user = Get(username);
 
             // check if username exists
             if (user == null)

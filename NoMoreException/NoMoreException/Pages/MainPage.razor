@@ -2,12 +2,10 @@
 
 @page "/mainpage"
 @attribute [Authorize]
-@inject UserController controller
 @using NoMoreException.Controllers
 @using System.IO
 @using NoMoreException.Data
 @inject CustomHttpClient Http
-@inject UserController UserController
 
 <div class="container">
     @*<form @onsubmit="OnSubmit">
@@ -26,14 +24,14 @@
 
     <AuthorizeView Roles="Admin">
         <p>Yes, me Admin</p>
-        <h3>welcome @controller.UserDto.Username</h3>
+        <h3>welcome @user.Username</h3>
         <h3>session user: @user.Email</h3>
         <button @onclick="LogoutUserRequest">Logout</button>
     </AuthorizeView>
 
     <AuthorizeView Roles="User">
         <p>Oh no, me user</p>
-        <h3>welcome @controller.UserDto.Username</h3>
+        <h3>welcome @user.Username</h3>
         <h3>session user: @user.Email</h3>
         <button @onclick="LogoutUserRequest">Logout</button>
     </AuthorizeView>

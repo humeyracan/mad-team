@@ -9,7 +9,7 @@ namespace BusinessLayer.Interfaces
 {
     public interface IUserObject : IBusinessObject
     {
-        public UserDto Get(string username, string password);
+        public UserDto Get(string username);
         public List<UserDto> GetAll();
         public UserDto GetById(int id);
         public UserDto Authenticate(String username, String password);

@@ -3,9 +3,12 @@ using BusinessLayer.Dtos;
 using BusinessLayer.Interfaces;
 using BusinessLayer.Mapping;
 using DataAccess.DataModels;
+using DataAccess.DataModels.Enums;
 using DataAccess.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.DirectoryServices.AccountManagement;
+using System.DirectoryServices.ActiveDirectory;
 using System.Threading.Tasks;
 
 namespace BusinessLayer.BusinessObject
@@ -26,10 +29,10 @@ namespace BusinessLayer.BusinessObject
             repository.RemoveById(id);
         }
 
-        public UserDto Get(String username, String password)
+        public UserDto Get(String username)
         {
             var repository = FindService<IUserRepository>();
-            var result = repository.Get(username, password);
+            var result = repository.Get(username);
             return MappingFactory.Map<User, UserDto>(result);
         }
 
@@ -39,16 +42,64 @@ namespace BusinessLayer.BusinessObject
             var result = repository.GetAll();
             return MappingFactory.MapList<User, UserDto>(result);
         }
+        public UserDto CheckActiveDirectoryForLogin(String username,String password)
+        {
+            bool loginResult = false;
+            UserDto user = null;
+            using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, Domain.GetComputerDomain().ToString()))
+            {
+                //Kullanıcı ve Şifre bilgilerini doğrulamasını yapar. Doğruysa login olunmuştur.
+                loginResult = pc.ValidateCredentials(username, password);
+                if (loginResult)
+                {
+                    UserPrincipal tempUserPrincipal = new UserPrincipal(pc);
+                    tempUserPrincipal.SamAccountName = username;
 
+                    // Search for user
+                    PrincipalSearcher searchUser = new PrincipalSearcher();
+                    searchUser.QueryFilter = tempUserPrincipal;
+
+                    UserPrincipal foundUser = (UserPrincipal)searchUser.FindOne();
+                    if (foundUser != null)
+                        user = new UserDto
+                        {
+                            Active = true,
+                            Username = username,
+                            RegistryDate = DateTime.Now.ToLocalTime(),
+                            UserType = UserTypes.User,
+                            FullName = foundUser.Name,
+                            Email = foundUser.EmailAddress
+                        };
+                }
+            }
+            return user;
+        }
         public UserDto Authenticate(String username, String password)
         {
-            var repository = FindService<IUserRepository>();
-            var result = repository.Authenticate(username, password);
+            var result = Get(username);
+            try
+            {
+                var checkUser = CheckActiveDirectoryForLogin(username, password);
+                
+                if (checkUser != null && result == null)
+                {
+                    CreateUser(checkUser);
+                    result = Get(username);
+                }
+                else if (checkUser == null)
+                    result = null;
 
-            if (result == null)
-                return null;
+                if (result == null)
+                    return null;
+            }
+            catch (Exception ex)
+            {
 
-            return MappingFactory.Map<User, UserDto>(result);
+                throw ex;
+            }
+           
+
+            return result;
         }
 
         public void CreateUser(UserDto newUserDto)
