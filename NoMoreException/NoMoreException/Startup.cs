@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NoMoreException.Controllers;
-using NoMoreException.Data;
+using NoMoreException.Services;
 using Shared.BaseTypes;
 
 
@@ -34,10 +34,10 @@ namespace NoMoreException
             services.AddAuthentication();
             services.AddProtectedBrowserStorage();
             services.AddScoped<AuthenticationStateProvider, AuthUserService>();
+            services.AddScoped<IAlertService,AlertService>();
             services.AddHttpContextAccessor();
             services.AddHttpClient();
 
-            services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<UserController>();
             services.AddSingleton<AttachmentController>();
             services.AddSingleton<LabelController>();

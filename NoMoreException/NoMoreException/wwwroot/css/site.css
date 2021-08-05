@@ -32,11 +32,11 @@ a, .btn-link {
 }
 
 .body-height{
-    margin-top:15%;
+    margin-top:10%;
 }
 @media (max-width: 768px) {
     .body-height {
-        margin-top: 50%;
+        margin-top: 45%;
     }
 }
 

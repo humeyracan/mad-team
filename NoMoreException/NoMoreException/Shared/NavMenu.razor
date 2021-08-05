@@ -1,37 +1,51 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">NoMoreException</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</div>
+﻿<header id="header" class="fixed-top ">
+    <div class="container d-flex align-items-center">
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="login">
-                <span class="oi oi-plus" aria-hidden="true"></span> Login
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="mainpage">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Main Page
-            </NavLink>
-        </li>
-    </ul>
-</div>
+        <h1 class="logo"><a href="index.html">Sailor</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
-@code {
-    private bool collapseNavMenu = true;
+        <nav class="nav-menu d-none d-lg-block">
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+            <ul>
+                <li class="active"><a href="index.html">Home</a></li>
 
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}
+                <li class="drop-down">
+                    <a href="#">About</a>
+                    <ul>
+                       
+                        <li>
+                            <NavLink class="nav-link" href="login">
+                                <span class="oi oi-plus" aria-hidden="true"></span> Login
+                            </NavLink>
+                        </li>
+                        <li><a href="team.html">Soru</a></li>
+                        <li><a href="testimonials.html">Testimonials</a></li>
+
+                        <li class="drop-down">
+                            <a href="#">Deep Drop Down</a>
+                            <ul>
+                                <li><a href="#">Deep Drop Down 1</a></li>
+                                <li><a href="#">Deep Drop Down 2</a></li>
+                                <li><a href="#">Deep Drop Down 3</a></li>
+                                <li><a href="#">Deep Drop Down 4</a></li>
+                                <li><a href="#">Deep Drop Down 5</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li><a href="services.html">Services</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+
+            </ul>
+
+        </nav><!-- .nav-menu -->
+
+        <a href="index.html" class="get-started-btn ml-auto">Get Started</a>
+
+    </div>
+</header><!-- End Header -->
