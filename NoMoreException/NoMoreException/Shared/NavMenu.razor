@@ -1,27 +1,39 @@
 ﻿<header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center">
 
-        <h1 class="logo"><a href="index.html">Sailor</a></h1>
+        <h1 class="logo"><a href="index.html">No More Exception</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
         <nav class="nav-menu d-none d-lg-block">
 
             <ul>
-                <li class="active"><a href="index.html">Home</a></li>
+                <li class="active"><a href="index.razor">Anasayfa</a></li>
 
                 <li class="drop-down">
-                    <a href="#">About</a>
+                    <a href="#">Sorular</a>
                     <ul>
-                       
+                    
                         <li>
                             <NavLink class="nav-link" href="login">
-                                <span class="oi oi-plus" aria-hidden="true"></span> Login
+                                <span class="oi oi-question-mark" aria-hidden="true"></span>Sorular
                             </NavLink>
                         </li>
-                        <li><a href="team.html">Soru</a></li>
-                        <li><a href="testimonials.html">Testimonials</a></li>
-
+                        <li>
+                            <NavLink class="nav-link" href="login">
+                                <span class="oi oi-tags" aria-hidden="true"></span> Etiketler
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink class="nav-link" href="login">
+                                <span class="oi oi-list-rich" aria-hidden="true"></span> Kategoriler
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink class="nav-link" href="login">
+                                <span class="oi oi-people" aria-hidden="true"></span> Kişiler
+                            </NavLink>
+                        </li>
                         <li class="drop-down">
                             <a href="#">Deep Drop Down</a>
                             <ul>
@@ -35,17 +47,47 @@
                     </ul>
                 </li>
 
-                <li><a href="services.html">Services</a></li>
-                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="services.html">NME Nedir?</a></li>
+                @*<li><a href="portfolio.html">Portfolio</a></li>
                 <li><a href="pricing.html">Pricing</a></li>
                 <li><a href="blog.html">Blog</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="contact.html">Contact</a></li>*@
+
+
 
             </ul>
 
         </nav><!-- .nav-menu -->
 
-        <a href="index.html" class="get-started-btn ml-auto">Get Started</a>
+        <a href="index.html" class="get-started-btn ml-auto">Soru Sor</a>
+        <nav class="nav-menu d-none d-lg-block">
+            <ul>
+                <li class="drop-down">
+
+                    <a href="#">Ece Metin</a>
+                    <ul>
+
+                        <li>
+                            <NavLink class="nav-link" href="login">
+                                <span class="oi oi-person" aria-hidden="true"></span> Profilim
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink class="nav-link" href="login">
+                                <span class="oi oi-key" aria-hidden="true"></span> Kullanıcı Ayarları
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink class="nav-link" href="logout">
+                                <span class="oi oi-account-logout" aria-hidden="true"></span> Çıkış Yap
+                            </NavLink>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+  
+   
 
     </div>
 </header><!-- End Header -->

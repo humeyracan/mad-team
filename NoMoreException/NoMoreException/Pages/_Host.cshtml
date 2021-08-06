@@ -56,5 +56,17 @@
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
     <script src="_framework/blazor.server.js"></script>
+    <script>
+        function timeOutCall(dotnethelper) {
+            document.onmousemove = resetTimeDelay;
+            document.onkeypress = resetTimeDelay;
+
+
+
+            function resetTimeDelay() {
+                dotnethelper.invokeMethodAsync("TimerInterval");
+            }
+        }
+    </script>
 </body>
 </html>
