@@ -1,19 +1,65 @@
 ﻿@inherits LayoutComponentBase
+@using System.Timers
+@inject NavigationManager UriHelper
+@inject IJSRuntime JSRuntime
+@using NoMoreException.Services
 
 <div class="page">
     <AuthorizeView>
-        <div class="sidebar">
-            <NavMenu />
-        </div>
+        <NavMenu />
     </AuthorizeView>
 
     <div class="main">
-        @*<div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>*@
-
         <div class="content px-4">
             @Body
         </div>
     </div>
 </div>
+
+
+@code { [CascadingParameter]
+    private Task<AuthenticationState> stateAuthenticate { get; set; }
+    private Timer timerObj;
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Set the Timer delay.
+        timerObj = new Timer(7000);//1000ms*60*20 = 20 dakika
+        timerObj.Elapsed += UpdateTimer;
+        timerObj.AutoReset = false;
+        // Identify whether the user is active or inactive using onmousemove and onkeypress in JS function.
+        await JSRuntime.InvokeVoidAsync("timeOutCall", DotNetObjectReference.Create(this));
+    }
+
+
+
+    [JSInvokable]
+    public void TimerInterval()
+    {
+        // Resetting the Timer if the user in active state.
+        timerObj.Stop();
+        // Call the TimeInterval to logout when the user is inactive.
+        timerObj.Start();
+    }
+
+
+
+    private void UpdateTimer(Object source, ElapsedEventArgs e)
+    {
+        InvokeAsync(async () =>
+        {
+                // Log out when the user is inactive.
+                var authstate = await stateAuthenticate;
+            if (authstate.User.Identity != null && authstate.User.Identity.IsAuthenticated)
+            {
+                await ServiceProvider.Get<AuthUserService>().LogoutAsync();
+                NavigationManager.NavigateTo("/");
+            }
+        });
+    } }
+
+
+
+

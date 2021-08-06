@@ -1,29 +1,92 @@
-﻿@page "/"
+﻿@using BusinessLayer.Dtos
+
+@page "/"
+@attribute [Authorize]
+@using NoMoreException.Controllers
 @using Microsoft.JSInterop
 @inject IJSRuntime JS
-@attribute [Authorize]
-<h1>Hello, world!</h1>
+@using System.IO
+@using NoMoreException.Services
+@inject CustomHttpClient Http
 
-Welcome to your new app.
+<div class="container">
+  
+    <AuthorizeView>
+        <Authorized>
+            <p>The login I did</p>
+        </Authorized>
+        <NotAuthorized>
+            <p>The login I must do</p>
+        </NotAuthorized>
+    </AuthorizeView>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    <AuthorizeView Roles="Admin">
+        <p>Yes, me Admin</p>
+        <h3>welcome @user.Username</h3>
+        <h3>session user: @user.Email</h3>
+        <button @onclick="LogoutUserRequest">Logout</button>
+    </AuthorizeView>
 
+    <AuthorizeView Roles="User">
+        <p>Oh no, me user</p>
+        <h3>welcome @user.Username</h3>
+        <h3>session user: @user.Email</h3>
+        <button @onclick="LogoutUserRequest">Logout</button>
+    </AuthorizeView>
 
-<AuthorizeView>
-    <Authorized>
-        <div class="display-4">You are logged in</div>
-    </Authorized>
-    <NotAuthorized>
-        <div class="display-4">Please login</div>
-    </NotAuthorized>
-</AuthorizeView>
+</div>
+@code {
+    [Parameter]
+    public int Id { get; set; }
 
-<AuthorizeView Roles="Admin">
-    <div class="display-4">You are Admin</div>
-</AuthorizeView>
+    UserDto user = new UserDto();
 
-<AuthorizeView Roles="User">
-    <div class="display-4">You are a User</div>
-</AuthorizeView>
+    protected override void OnParametersSet()
+    {
+        //this.user = Data.Products.GetProduct(this.Id);
+    }
+    string Message = "No file(s) selected";
+    IReadOnlyList<IBrowserFile> selectedFiles;
 
+    private void OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        selectedFiles = e.GetMultipleFiles();
+        Message = $"{selectedFiles.Count} file(s) selected";
+        this.StateHasChanged();
+    }
+    private async void OnSubmit()
+    {
+        foreach (var file in selectedFiles)
+        {
+            Stream stream = file.OpenReadStream();
+            MemoryStream ms = new MemoryStream();
+            await stream.CopyToAsync(ms);
+            stream.Close();
+
+            UploadedFile uploadedFile = new UploadedFile();
+            uploadedFile.FileName = file.Name;
+            uploadedFile.FileContent = ms.ToArray();
+            ms.Close();
+
+            await Http.PostJsonAsync<UploadedFile>("/api/fileupload", uploadedFile);
+        }
+        Message = $"{selectedFiles.Count} file(s) uploaded on server";
+        this.StateHasChanged();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            user = await ServiceProvider.Get<AuthUserService>().GetUserSession();
+            StateHasChanged();
+        }
+    }
+
+    private async Task LogoutUserRequest()
+    {
+        await ServiceProvider.Get<AuthUserService>().LogoutAsync();
+        NavigationManager.NavigateTo("/");
+    }
+}
 

@@ -1,0 +1,17 @@
+﻿@page "/logout"
+@using Microsoft.JSInterop
+@inject IJSRuntime JS
+
+
+
+@attribute [Authorize]
+@using NoMoreException.Controllers
+@using NoMoreException.Services
+
+
+
+@code { protected override async Task OnInitializedAsync()
+            {
+                await ServiceProvider.Get<AuthUserService>().LogoutAsync();
+                NavigationManager.NavigateTo("/");
+            } }
