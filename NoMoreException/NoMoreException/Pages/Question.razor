@@ -1,0 +1,178 @@
+﻿@page "/question"
+@page "/question/{postid}"
+@using BusinessLayer.Dtos
+@using NoMoreException.Components
+@inject PostController postController
+@inject VoteController voteController
+@using NoMoreException.Services
+@using DataAccess.DataModels.Enums
+
+@attribute [Authorize]
+
+<div class="container card-body">
+
+    <h3>@post.Title</h3>
+    <hr>
+    <PostView upButtonDisabled="@upButtonDisabled" downButtonDisabled="@downButtonDisabled" UpScoreOnClick2="() => UpScore(post)" DownScoreOnClick2="() => DownScore(post)">
+        <Score>
+            @post.Score
+        </Score>
+        <CardBody>
+            @post.Body
+        </CardBody>
+        <CardBody2>
+            <span class="w-25 mb-2 tag lb">Java</span>
+            <span class="w-25 mb-2 tag lb">.Net</span>
+        </CardBody2>
+        <CardFooter>
+            asked @post.CreationDate
+        </CardFooter>
+        <CardFooter2>
+            @post.User.Username
+        </CardFooter2>
+    </PostView>
+    <br />
+    <div class="">
+        @if (post.AnswerCount > 0)
+        {
+            <h4> @post.AnswerCount answers</h4>
+        }
+        else
+        {
+            <p><h4> @post.AnswerCount answer </h4></p>
+        }
+    </div>
+
+    <div>
+        @if (posts == null)
+        {
+            <p><em>Henüz hiç cevap yok...</em></p>
+        }
+        else
+        {
+            @foreach (var answer in sortedPosts)
+            {
+                VoteDto upvote = voteController.GetVote(user.Id, answer.Id, VoteTypes.Positive);
+                bool upButtonDisabled2 = upButtonDisabled2 = upvote != null;
+
+                VoteDto downvote = voteController.GetVote(user.Id, answer.Id, VoteTypes.Negative);
+                bool downButtonDisabled2 = downvote != null;
+
+                <PostView upButtonDisabled="@upButtonDisabled2" downButtonDisabled="@downButtonDisabled2" UpScoreOnClick2="() => UpScore(answer)" DownScoreOnClick2="() => DownScore(answer)" isAcceptedAnswer="post.AcceptedAnswerId == answer.Id">
+                    <Score>
+                        @answer.Score
+                    </Score>
+                    <CardBody>
+                        @answer.Body
+                    </CardBody>
+                    <CardBody2>
+                        <span class="w-25 mb-2 tag lb">Java</span>
+                        <span class="w-25 mb-2 tag lb">.Net</span>
+                    </CardBody2>
+                    <CardFooter>
+                        answered @answer.CreationDate
+                    </CardFooter>
+                    <CardFooter2>
+                        @answer.User.Username
+                    </CardFooter2>
+                </PostView>
+                <hr>
+            }
+        }
+    </div>
+</div>
+@code {
+    [Parameter]
+    public string postid { get; set; }
+    private PostDto post;
+    private List<PostDto> posts;
+    private List<PostDto> sortedPosts = new List<PostDto>();
+    public bool upButtonDisabled = true;
+    public bool downButtonDisabled = true;
+    private UserDto user = new UserDto();
+    protected override async Task OnInitializedAsync()
+    {
+        if (postid != null)
+        {
+            user = await ServiceProvider.Get<AuthUserService>().GetUserSession();
+
+            //postid int mi kontrolu olcak
+            post = postController.GetPostById(Int32.Parse(postid));
+            posts = postController.GetByParentId(Int32.Parse(postid));
+
+            if (post.AcceptedAnswerId > 0)
+            {
+                var index = posts.FindIndex(x => x.Id == post.AcceptedAnswerId);
+                var item = posts[index];
+                sortedPosts.Add(item);
+                posts.RemoveAt(index);
+                //posts = posts.OrderByDescending(o => o.Score).ToList();
+                foreach (var answer in posts)
+                {
+                    sortedPosts.Add(answer);
+                }
+            }
+            else
+                sortedPosts = posts;
+        }
+    }
+
+    //bir kullanici birden fazla oy kullanmamasi icin bunu dbye yazmak gerekir
+    public void UpScore(PostDto post)
+    {
+        VoteDto vote = voteController.GetVote(user.Id, post.Id);
+        if (vote != null)
+        {
+            post.Score = vote.VoteType != VoteTypes.Positive ? post.Score + 1 : post.Score -1;
+            vote.VoteType = vote.VoteType != VoteTypes.NoValue ? VoteTypes.NoValue : VoteTypes.Positive;
+            voteController.UpdateVote(vote);
+        }
+        else
+        {
+            post.Score = post.Score + 1;
+            CreateVote(post.Id, VoteTypes.Positive);
+        }
+        postController.UpdateScore(post);
+        StateHasChanged();
+    }
+    public void DownScore(PostDto post)
+    {
+        VoteDto vote = voteController.GetVote(user.Id, post.Id);
+        if (vote != null)
+        {
+            post.Score = vote.VoteType != VoteTypes.Negative ? post.Score - 1 : post.Score + 1;
+            vote.VoteType = vote.VoteType != VoteTypes.NoValue ? VoteTypes.NoValue : VoteTypes.Negative;
+            voteController.UpdateVote(vote);
+        }
+        else
+        {
+            post.Score = post.Score - 1;
+            CreateVote(post.Id, VoteTypes.Negative);
+        }
+        postController.UpdateScore(post);
+        StateHasChanged();
+    }
+
+    public async void CreateVote(int postId, VoteTypes voteType)
+    {
+        VoteDto vote = new VoteDto();
+        vote.VoteType = voteType;
+        vote.PostId = postId;
+        vote.UserId = user.Id;
+        voteController.CreateVote(vote);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        //if (firstRender)
+        {
+            VoteDto upvote = voteController.GetVote(user.Id, post.Id, VoteTypes.Positive);
+            upButtonDisabled = upvote != null;
+
+            VoteDto downvote = voteController.GetVote(user.Id, post.Id, VoteTypes.Negative);
+            downButtonDisabled = downvote != null;
+
+            StateHasChanged();
+        }
+    }
+}

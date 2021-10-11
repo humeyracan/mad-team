@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 
 using Newtonsoft.Json;
 using Shared.BaseTypes;
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -108,8 +109,9 @@ namespace NoMoreException.Services
             {
                 ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[]
                 {
-                new Claim(ClaimTypes.Name, user.Id.ToString()),
-                new Claim(ClaimTypes.Role, user.UserType.ToString())
+                new Claim(ClaimTypes.Name, user.FullName.ToString()),
+                new Claim(ClaimTypes.Role, user.UserType.ToString()),
+                new Claim("Avatar", Convert.ToBase64String(user.ProfileImage))
             }, "apiauth_type");
 
                 ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);

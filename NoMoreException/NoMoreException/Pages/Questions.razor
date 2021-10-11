@@ -1,0 +1,49 @@
+﻿@page "/questions"
+@using NoMoreException.Components
+@using BusinessLayer.Dtos
+@inject PostController controller
+@attribute [Authorize]
+
+<h3>Sorular</h3>
+<div class="container card-body">
+    @if (posts == null)
+    {
+        <p><em>Henüz hiç soru sorulmamış...</em></p>
+    }
+    else
+    {
+        @foreach (var post in posts)
+        {
+            <CollapsibleCard CardHeaderTitle="@post.Title" CardHeaderTitleOnClick3="() => navigateToQuestionPage(post.Id)">
+                <CardHeader>
+                    @post.User.FullName
+                    @post.CreationDate
+                </CardHeader>
+                <CardBody>
+                    @post.Body
+                </CardBody>
+                <CardBody2>
+                    @*@foreach (var label in post.labels) bg-secondary text-white*@
+                    <span class="w-25 mb-2 tag grey">Java</span>
+                    <span class="w-25 mb-2 tag grey">.Net</span>
+                </CardBody2>
+                <CardFooter>
+                    <span class="tag b">@post.AnswerCount Cevap</span>
+                    <span class="tag b">@post.Score Oy</span>
+                    <span class="tag g">@post.AcceptedAnswerId Doğru Cevap</span>
+                </CardFooter>
+            </CollapsibleCard>
+        }
+    }
+</div>
+@code {
+    private List<PostDto> posts;
+    protected override async Task OnInitializedAsync()
+    {
+        posts = controller.GetAllActiveQuestions();
+    }
+    public void navigateToQuestionPage(int postId)
+    {
+        NavigationManager.NavigateTo("question/" + postId);
+    }
+}

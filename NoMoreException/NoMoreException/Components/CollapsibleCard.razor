@@ -1,0 +1,47 @@
+﻿@using Microsoft.AspNetCore.Components
+
+<div class="pt-4">
+    <div class="">
+        <div class="">
+            @*btn-secondary btn-sm*@
+            <button @onclick="Toggle" type="button" class="btn float-left shadow-none">
+                <span class="@BtnClass"></span>
+            </button>
+            <button class="btn btn-link shadow-none" style="color: black; text-decoration: none" @onclick="CardHeaderTitleOnClick3">
+                @CardHeaderTitle
+            </button>
+            <span style="color: lightgray;vertical-align: middle">- @CardHeader</span>
+        </div>
+        @if (ShowCardBody)
+        {
+            <div style="margin-left:55px !important; margin-bottom:5pt; padding-bottom:5pt;">
+                <div class="">
+                    @CardBody
+                </div>
+                <div class="">
+                    @CardBody2
+                </div>
+            </div>
+        }
+        <div style="margin-left:50px !important">
+            @CardFooter
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public RenderFragment CardBody { get; set; }
+    [Parameter] public RenderFragment CardBody2 { get; set; }
+    [Parameter] public RenderFragment CardFooter { get; set; }
+    [Parameter] public RenderFragment CardHeader { get; set; }
+    [Parameter] public string CardHeaderTitle { get; set; }
+    [Parameter] public EventCallback CardHeaderTitleOnClick3 { get; set; }
+
+
+    [Parameter] public bool ShowCardBody { get; set; } = false;
+    public string BtnClass => ShowCardBody ? "oi oi-caret-bottom" : "oi oi-caret-right";
+    public void Toggle()
+    {
+        ShowCardBody = !ShowCardBody;
+    }
+}

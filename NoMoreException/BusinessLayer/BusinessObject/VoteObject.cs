@@ -5,6 +5,7 @@ using BaseTypes.Shared;
 using BusinessLayer.Dtos;
 using BusinessLayer.Mapping;
 using DataAccess.DataModels;
+using DataAccess.DataModels.Enums;
 using DataAccess.Repositories;
 
 namespace BusinessLayer.BusinessObject
@@ -26,6 +27,19 @@ namespace BusinessLayer.BusinessObject
 
             return MappingFactory.Map<Vote, VoteDto>(result);
         }
+        public VoteDto getVote(int userId, int postId, VoteTypes voteType)
+        {
+            var repository = FindService<IVoteRepository>();
+            var result = repository.getVote(userId, postId, voteType);
+            return MappingFactory.Map<Vote, VoteDto>(result);
+        }
+        public VoteDto getVote(int userId, int postId)
+        {
+            var repository = FindService<IVoteRepository>();
+            var result = repository.getVote(userId, postId);
+            return MappingFactory.Map<Vote, VoteDto>(result);
+        }
+
         public List<VoteDto> GetVotesByPostId(int postId)
         {
             var repository = FindService<IVoteRepository>();

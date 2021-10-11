@@ -25,6 +25,12 @@ body{
     text-transform: uppercase;
 }
 
+.rightbottom {
+    position: absolute;
+    top: 250px;
+    right: 10px;
+}
+
 .mybtn {
     border-radius: 50px !important;
 }

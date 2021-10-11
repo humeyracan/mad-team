@@ -8,5 +8,8 @@ namespace DataAccess.Repositories
     {
         public List<Post> GetAll();
         public List<Post> GetPostByUserId(int userId);
+        public List<Post> GetAllActiveQuestions();
+        public List<Post> GetByParentId(int parentId);
+        public Post GetPostById(int postId);
     }
 }

@@ -2,7 +2,7 @@
 @inject NavigationManager NavigationManager
 @using BusinessLayer.Dtos
 @inject UserController controller
-@inject IAlertService AlertService
+@inject AlertService AlertService
 @using NoMoreException.Services
 
 
@@ -12,9 +12,9 @@
     </Authorized>
 </AuthorizeView>
 
-<div class="container body-height">
+<div class="container" style="margin-top:5%;">
     <div class="row">
-        <div class="col-md-5 mx-auto login-form-border">
+        <div class="col-md-5 mx-auto login-form-border" style="max-width:30%;">
             <div id="first">
                 <div class="myform form ">
                     <div class="logo mb-3">
@@ -47,6 +47,9 @@
                             </div>
                             <div class="col-md-12" style="padding:0 !important;">
                                 <div class="col-md-4" style="padding:0 !important;">
+
+                                    @*<div class="rightbottom" >
+            <div class="col-md-auto" style="padding:0 !important;">*@
                                     <button type="submit" disabled="@loading" class="btn btn-block mybtn btn-dark tx-tfm">
                                         @if (loading)
                                         {
@@ -68,7 +71,7 @@
 
     private UserDto User = new UserDto();
     private bool loading;
-   
+
     private async void OnValidSubmit()
     {
         // reset alerts on submit

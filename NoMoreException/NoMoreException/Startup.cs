@@ -45,6 +45,7 @@ namespace NoMoreException
             services.AddSingleton<VoteController>();
             services.AddSingleton<PostController>();
             services.AddSingleton<CustomHttpClient>();
+            services.AddSingleton<AlertService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

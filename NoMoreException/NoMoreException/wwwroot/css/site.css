@@ -106,3 +106,126 @@ a, .btn-link {
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
     background-color: #c0392b !important;
 }
+
+.userimage {
+    margin-top:6px;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+
+.Row {
+    display: inline-block;
+    border-spacing: 5pt;
+}
+
+.Col {
+    display: inline-block;
+}
+
+.TopLeft {
+    height: 30pt;
+    width: 30pt;
+    align-items: left;
+}
+
+.TopCenter {
+    height: 100%;
+    width: 80%;
+    text-align: left;
+    vertical-align: top;
+}
+
+
+.MiddleRight {
+    text-align: right;
+    align-items: right;
+    vertical-align: middle;
+}
+
+.BottomLeft {
+    text-align: left;
+    align-items: left;
+    vertical-align: bottom;
+}
+
+.BottomCenter {
+    text-align: center;
+    align-items: left;
+    vertical-align: bottom;
+}
+
+.BottomRight {
+    height: 30pt;
+    width: 30pt;
+    border: 1pt solid blue;
+    text-align: right;
+    align-items: right;
+    vertical-align: right;
+}
+
+hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}
+.tag {
+    border-radius: 5pt;
+    padding: 4px;
+}
+
+    .tag.lb {
+        background-color: #e8ecf4 !important;
+        color: #66c0ed !important;
+    }
+
+    .tag.b {
+        background-color: #0062cc !important;
+        color: white !important;
+    }
+
+    .tag.g {
+        background-color: #28a745 !important;
+        color: white !important;
+    }
+
+    .tag.grey {
+        background-color: #6c757d !important;
+        color: white !important;
+    }
+
+.postfooter {
+    border-radius: 5pt;
+    margin-top: 20px;
+    background-color: #e8ecf4 !important;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+    .postfooter > div {
+        color: #66c0ed !important;
+    }
+
+.checkmark {
+    display: inline-block;
+    transform: rotate(45deg);
+    height: 25px;
+    width: 12px;
+    border-bottom: 7px solid #78b13f;
+    border-right: 7px solid #78b13f;
+    text-align: center !important;
+    align-items: center;
+}
+
+.up:disabled, .down:disabled, .up:disabled:hover, .down:disabled:hover {
+    color: lightgrey;
+}

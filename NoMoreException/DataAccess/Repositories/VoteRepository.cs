@@ -1,4 +1,5 @@
 ﻿using DataAccess.DataModels;
+using DataAccess.DataModels.Enums;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,25 @@ namespace DataAccess.Repositories
                     votes.Add(query);
             }
             return votes;
+        }
+
+        public Vote getVote(int userId, int postId, VoteTypes voteType)
+        {
+            var query =  Context.Votes.FirstOrDefault(v => v.UserId == userId && v.PostId == postId && v.VoteType == voteType);
+
+            if (query != null)
+                return query;
+            else
+                return null;
+        }
+        public Vote getVote(int userId, int postId)
+        {
+            var query = Context.Votes.FirstOrDefault(v => v.UserId == userId && v.PostId == postId);
+
+            if (query != null)
+                return query;
+            else
+                return null;
         }
 
         public Vote GetVoteById(int voteid)

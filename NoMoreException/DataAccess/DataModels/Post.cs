@@ -51,5 +51,7 @@ namespace DataAccess.DataModels
         public int? CommentCount { get; set; }
 
         public DateTime? ClosedDate { get; set; }
+        
+        //public string Label { get; set; }
     }
 }

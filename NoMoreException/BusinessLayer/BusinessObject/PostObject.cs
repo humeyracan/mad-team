@@ -3,7 +3,6 @@ using BusinessLayer.Dtos;
 using BusinessLayer.Mapping;
 using DataAccess.DataModels;
 using DataAccess.Repositories;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -24,8 +23,22 @@ namespace BusinessLayer.BusinessObject
             var result = repository.GetById(postid);
 
             return MappingFactory.Map<Post, PostDto>(result);
-
         }
+
+        public PostDto GetPostById(int postid)
+        {
+            var repository = FindService<IPostRepository>();
+            var result = repository.GetPostById(postid);
+
+            return MappingFactory.Map<Post, PostDto>(result);
+        }
+        public List<PostDto> GetByParentId(int parentid)
+        {
+            var repository = FindService<IPostRepository>();
+            var result = repository.GetByParentId(parentid);
+            return MappingFactory.MapList<Post, PostDto>(result);
+        }
+ 
         public async Task UpdatePost(PostDto postDto)
         {
             var repository = FindService<IPostRepository>();
@@ -47,6 +60,11 @@ namespace BusinessLayer.BusinessObject
             repository.RemoveById(id);
         }
 
+        public List<PostDto> GetAllActiveQuestions()
+        {
+            var repository = FindService<IPostRepository>();
+            var result = repository.GetAllActiveQuestions();
+            return MappingFactory.MapList<Post, PostDto>(result);
+        }
     }
-
 }

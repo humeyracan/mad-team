@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.BusinessObject;
 using BusinessLayer.Dtos;
+using DataAccess.DataModels.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Shared.BaseTypes;
 using System;
@@ -32,6 +33,14 @@ namespace NoMoreException.Controllers
             return Task.FromResult(Ioc.Resolve<IVoteObject>().GetById(id));
         }
 
+        public VoteDto GetVote(int userId, int postId, VoteTypes voteType)
+        {
+            return Ioc.Resolve<IVoteObject>().getVote(userId, postId, voteType);
+        }
+        public VoteDto GetVote(int userId, int postId)
+        {
+            return Ioc.Resolve<IVoteObject>().getVote(userId, postId);
+        }
         public List<VoteDto> GetVotesByPostId(int postId)
         {
             return Ioc.Resolve<IVoteObject>().GetVotesByPostId(postId);

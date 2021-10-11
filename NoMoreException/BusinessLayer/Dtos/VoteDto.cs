@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccess.DataModels.Enums;
+using System;
 
 namespace BusinessLayer.Dtos
 {
@@ -6,8 +7,12 @@ namespace BusinessLayer.Dtos
     {
         public int Id { get; set; }
         public PostDto  Post{ get; set; }
-        public int VoteType { get; set; }   
+        public VoteTypes VoteType { get; set; }   
         public UserDto User { get; set; }
         public DateTime CreationDate { get; set; }
+
+        public int PostId { get; set; }
+
+        public int UserId { get; set; }
     }
 }

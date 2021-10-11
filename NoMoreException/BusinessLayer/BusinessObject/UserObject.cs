@@ -46,31 +46,38 @@ namespace BusinessLayer.BusinessObject
         {
             bool loginResult = false;
             UserDto user = null;
-            using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, Domain.GetComputerDomain().ToString()))
+            try
             {
-                //Kullanıcı ve Şifre bilgilerini doğrulamasını yapar. Doğruysa login olunmuştur.
-                loginResult = pc.ValidateCredentials(username, password);
-                if (loginResult)
+                using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, Domain.GetComputerDomain().ToString()))
                 {
-                    UserPrincipal tempUserPrincipal = new UserPrincipal(pc);
-                    tempUserPrincipal.SamAccountName = username;
+                    //Kullanıcı ve Şifre bilgilerini doğrulamasını yapar. Doğruysa login olunmuştur.
+                    loginResult = pc.ValidateCredentials(username, password);
+                    if (loginResult)
+                    {
+                        UserPrincipal tempUserPrincipal = new UserPrincipal(pc);
+                        tempUserPrincipal.SamAccountName = username;
 
-                    // Search for user
-                    PrincipalSearcher searchUser = new PrincipalSearcher();
-                    searchUser.QueryFilter = tempUserPrincipal;
+                        // Search for user
+                        PrincipalSearcher searchUser = new PrincipalSearcher();
+                        searchUser.QueryFilter = tempUserPrincipal;
 
-                    UserPrincipal foundUser = (UserPrincipal)searchUser.FindOne();
-                    if (foundUser != null)
-                        user = new UserDto
-                        {
-                            Active = true,
-                            Username = username,
-                            RegistryDate = DateTime.Now.ToLocalTime(),
-                            UserType = UserTypes.User,
-                            FullName = foundUser.Name,
-                            Email = foundUser.EmailAddress
-                        };
+                        UserPrincipal foundUser = (UserPrincipal)searchUser.FindOne();
+                        if (foundUser != null)
+                            user = new UserDto
+                            {
+                                Active = true,
+                                Username = username,
+                                RegistryDate = DateTime.Now.ToLocalTime(),
+                                UserType = UserTypes.User,
+                                FullName = foundUser.Name,
+                                Email = foundUser.EmailAddress
+                            };
+                    }
                 }
+            }
+            catch (ActiveDirectoryObjectNotFoundException e)
+            {
+                loginResult = false;
             }
             return user;
         }

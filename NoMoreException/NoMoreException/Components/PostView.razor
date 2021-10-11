@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNetCore.Components
+
+<div class="pt-4">
+    <div class="Row" style="position: relative!important;">
+        <div class="Col TopLeft">
+            <div class="Row" style="vertical-align:top;">
+                <button disabled="@upButtonDisabled"  @onclick="UpScoreOnClick2" type="button" class="btn float-left shadow-none up">
+                    <span class="oi oi-caret-top"></span>
+                </button>
+            </div>
+            <div class="Row" style=" vertical-align: middle;
+        text-align: center !important;
+        width: 30pt;
+        align-items: left;">
+                @Score
+            </div>
+            <div class="Row" style="vertical-align:bottom;">
+                <button disabled="@downButtonDisabled" @onclick="DownScoreOnClick2" type="button" class="btn float-left shadow-none down">
+                    <span class="oi oi-caret-bottom"></span>
+                </button>
+            </div>
+            @if (isAcceptedAnswer)
+            {
+                <div class="Row" style="vertical-align: middle; text-align: center !important; width: 30pt;">
+                    <div class="checkmark"></div>
+                </div>
+            }
+        </div>
+        <div class="Row TopCenter">
+            <div class="Row">@CardBody</div>
+            <div class="Row">@CardBody2</div>
+            <div class="Row postfooter">
+                <div class="">@CardFooter</div>
+                <div class="">@CardFooter2</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public RenderFragment CardBody { get; set; }
+    [Parameter] public RenderFragment CardBody2 { get; set; }
+    [Parameter] public RenderFragment CardFooter { get; set; }
+    [Parameter] public RenderFragment CardFooter2 { get; set; }
+
+    [Parameter] public RenderFragment Score { get; set; }
+    [Parameter] public string CardHeaderTitle { get; set; }
+    [Parameter] public EventCallback UpScoreOnClick2 { get; set; }
+    [Parameter] public EventCallback DownScoreOnClick2 { get; set; }
+
+    [Parameter] public bool isAcceptedAnswer{ get; set; } = false;
+
+    [Parameter] public bool upButtonDisabled { get; set; } = false;
+    [Parameter] public bool downButtonDisabled { get; set; } = false;
+}

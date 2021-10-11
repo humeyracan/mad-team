@@ -8,9 +8,9 @@
     <AuthorizeView>
         <NavMenu />
     </AuthorizeView>
-
-    <div class="main">
+    <div class="main" style="position: relative; margin-top: 6%;">
         <div class="content px-4">
+            @*style="max-width: 900px; margin: auto;"*@
             @Body
         </div>
     </div>
@@ -26,7 +26,7 @@
     protected override async Task OnInitializedAsync()
     {
         // Set the Timer delay.
-        timerObj = new Timer(7000);//1000ms*60*20 = 20 dakika
+        timerObj = new Timer(1200000);//1000ms*60*20 = 20 dakika
         timerObj.Elapsed += UpdateTimer;
         timerObj.AutoReset = false;
         // Identify whether the user is active or inactive using onmousemove and onkeypress in JS function.
@@ -50,8 +50,8 @@
     {
         InvokeAsync(async () =>
         {
-                // Log out when the user is inactive.
-                var authstate = await stateAuthenticate;
+            // Log out when the user is inactive.
+            var authstate = await stateAuthenticate;
             if (authstate.User.Identity != null && authstate.User.Identity.IsAuthenticated)
             {
                 await ServiceProvider.Get<AuthUserService>().LogoutAsync();

@@ -17,7 +17,7 @@ namespace NoMoreException.Controllers
         {
             Ioc.Resolve<IPostObject>().CreatePost(post);
         }
-        public void UpdateVote(PostDto post)
+        public void UpdateScore(PostDto post)
         {
             Ioc.Resolve<IPostObject>().UpdatePost(post);
         }
@@ -27,14 +27,22 @@ namespace NoMoreException.Controllers
             return Ioc.Resolve<IPostObject>().GetAll();
         }
 
-        public Task<PostDto> GetVotebyId(int id)
+        public PostDto GetPostById(int id)
         {
-            return Task.FromResult(Ioc.Resolve<IPostObject>().GetById(id));
+            return Ioc.Resolve<IPostObject>().GetPostById(id);
         }
 
         public void RemoveById(int postId)
         {
             Ioc.Resolve<IPostObject>().RemoveById(postId);
+        }
+        public List<PostDto> GetAllActiveQuestions()
+        {
+            return Ioc.Resolve<IPostObject>().GetAllActiveQuestions();
+        }
+        public List<PostDto> GetByParentId(int parentid)
+        {
+            return Ioc.Resolve<IPostObject>().GetByParentId(parentid);
         }
     }
 }
